@@ -568,6 +568,56 @@ select:focus, input[type="number"]:focus {
     .header-content p {
         font-size: 0.8rem;
     }
+    
+    /* Enhanced mobile layout */
+    .calculator-wrapper {
+        padding: 1rem;
+    }
+    
+    .result-card {
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+        min-height: auto;
+        padding: 1.5rem;
+    }
+    
+    .result-card .amount {
+        font-size: 2.5rem;
+    }
+    
+    .result-card .apr {
+        font-size: 1.3rem;
+    }
+    
+    .result-card .total {
+        font-size: 1rem;
+    }
+    
+    .calculate-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        width: 80%;
+        max-width: 300px;
+        padding: 0.9rem 1rem;
+        font-size: 1.1rem;
+        animation: pulseButton 2s infinite;
+    }
+    
+    @keyframes pulseButton {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(255, 87, 34, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 87, 34, 0);
+        }
+    }
 }
 
 input:focus, select:focus, button:focus {
@@ -766,4 +816,77 @@ input[type="range"]:active::-webkit-slider-thumb {
     gap: 0.75rem;
     flex: 1;
     justify-content: space-between;
+}
+
+/* Mobile notification styles */
+.mobile-notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+.mobile-notification.hide {
+    opacity: 0;
+}
+
+.mobile-notification-content {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: slideUpMobile 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mobile-notification-content i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.mobile-notification-content p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+.mobile-notification-content button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.mobile-notification-content button:hover {
+    background: var(--accent-light);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUpMobile {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }

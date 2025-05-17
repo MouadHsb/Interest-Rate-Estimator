@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 import numpy as np
 import joblib
+import pandas as pd
 
 app = Flask(__name__)
 model = joblib.load('catboost.joblib')
@@ -22,26 +23,34 @@ def predict():
     data = request.json
     print("Received data:", data)
     
-    # Create features array with the new required features
-    features = np.array([[
-        int(data['fico']),
-        float(data['loan_amnt']),
-        float(data['dti']),
-        float(data['revol_util']),
-        float(data['total_bc_limit']),
-        float(data['revol_bal']),
-        float(data['total_acc']),
-        float(data['annual_inc']),
-        float(data['mths_since_recent_inq']),
-        float(data['open_acc']),
-        int(data['term_encoded']),
-        int(data['verified_Not_Verified']),
-        int(data['verified_Verified']),
-        int(data['title_Credit_card_refinancing'])
-    ]])
-    print("Features array:", features)
+    # Define feature names to match what was used during training
+    feature_names = ['fico', 'loan_amnt', 'dti', 'revol_util', 'total_bc_limit', 
+                     'revol_bal', 'total_acc', 'annual_inc', 'mths_since_recent_inq', 
+                     'open_acc', 'term_encoded', 'verified_Not_Verified', 
+                     'verified_Verified', 'title_Credit_card_refinancing']
     
-    predicted_rate = model.predict(features)[0]
+    # Create features array
+    features_dict = {
+        'fico': int(data['fico']),
+        'loan_amnt': float(data['loan_amnt']),
+        'dti': float(data['dti']),
+        'revol_util': float(data['revol_util']),
+        'total_bc_limit': float(data['total_bc_limit']),
+        'revol_bal': float(data['revol_bal']),
+        'total_acc': float(data['total_acc']),
+        'annual_inc': float(data['annual_inc']),
+        'mths_since_recent_inq': float(data['mths_since_recent_inq']),
+        'open_acc': float(data['open_acc']),
+        'term_encoded': int(data['term_encoded']),
+        'verified_Not_Verified': int(data['verified_Not_Verified']),
+        'verified_Verified': int(data['verified_Verified']),
+        'title_Credit_card_refinancing': int(data['title_Credit_card_refinancing'])
+    }
+    
+    features_df = pd.DataFrame([features_dict])
+    print("Features DataFrame:", features_df)
+    
+    predicted_rate = model.predict(features_df)[0]
     print("Raw predicted rate:", predicted_rate)
     
     predicted_rate = max(5.0, min(predicted_rate, 25.0))

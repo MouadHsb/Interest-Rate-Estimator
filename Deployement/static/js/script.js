@@ -27,6 +27,47 @@ document.addEventListener('DOMContentLoaded', function() {
         interestRate: document.getElementById('interest-rate'),
         totalCost: document.getElementById('total-cost')
     };
+    
+    // Check if user is on mobile device
+    function isMobileDevice() {
+        return (window.innerWidth <= 768) || 
+               /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    
+    // Show mobile notification popup
+    function showMobileNotification() {
+        if (isMobileDevice() && !localStorage.getItem('mobile_notification_shown')) {
+            const notification = document.createElement('div');
+            notification.className = 'mobile-notification';
+            notification.innerHTML = `
+                <div class="mobile-notification-content">
+                    <i class="fas fa-desktop"></i>
+                    <p>For the best experience, we recommend using this calculator on a desktop computer.</p>
+                    <button id="close-notification">Got it</button>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            document.getElementById('close-notification').addEventListener('click', function() {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+                // Store in localStorage so we don't show it again in this session
+                localStorage.setItem('mobile_notification_shown', 'true');
+            });
+            
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    notification.classList.add('hide');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }
+            }, 10000);
+        }
+    }
 
     function formatCurrency(value) {
         return new Intl.NumberFormat('en-US').format(value);
@@ -81,6 +122,11 @@ document.addEventListener('DOMContentLoaded', function() {
             animateValue(results.monthlyPayment, formatCurrency(data.monthly_payment));
             animateValue(results.interestRate, data.interest_rate.toFixed(2));
             animateValue(results.totalCost, formatCurrency(data.total_cost));
+            
+            // Scroll to top on mobile after results are updated
+            if (isMobileDevice()) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
 
         } catch (error) {
             console.error('Error calculating loan:', error);
@@ -135,5 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('calculate').addEventListener('click', calculateLoan);
 
+    // Show mobile notification on page load
+    showMobileNotification();
+    
     calculateLoan();
 });
