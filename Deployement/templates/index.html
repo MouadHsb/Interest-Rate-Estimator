@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+    <div class="container">        
+        <div class="content-wrapper">
+            <div class="calculator-wrapper">
+                <div class="result-card">
+                    <div class="result-content">
+                        <h3>Estimated Monthly Payment</h3>
+                        <div class="amount">$<span id="monthly-payment">497</span></div>
+                        <h3>Estimated Interest Rate</h3>
+                        <div class="apr"><span id="interest-rate">16.99</span>%</div>
+                  
+                        <div class="total">$<span id="total-cost">29,820</span> Total Cost</div>
+
+                                                
+                                                <div class="credits-section">
+                                                    <h3>Made By</h3>
+                                                    <div class="credit-name">Mouad El Hasbaoui</div>
+
+                                                </div>
+                    </div>
+                    
+                </div>
+
+                <div class="calculator-form">
+                    <div class="input-group">
+                        <label>Loan Amount</label>
+                        <input type="range" id="loan-amount" min="2500" max="40000" value="20000" step="500">
+                        <div class="range-details">
+                            <span>$2,500</span>
+                            <span class="range-value">$<span id="amount-value">20,000</span></span>
+                            <span>$40,000</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Loan Term</label>
+                        <input type="range" id="loan-term" min="36" max="84" value="60" step="12">
+                        <div class="range-details">
+                            <span>36 Mo</span>
+                            <span class="range-value"><span id="term-value">60</span> Months</span>
+                            <span>84 Mo</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Credit Score (FICO)</label>
+                        <input type="range" id="credit-score" min="660" max="850" value="756" step="1">
+                        <div class="range-details">
+                            <span>660</span>
+                            <span class="range-value"><span id="score-value">756</span></span>
+                            <span>850</span>
+                        </div>
+                    </div>
+
+                    <div class="additional-inputs">
+                        <div class="row">
+                            <div class="col">
+                                <label>Debt-to-Income Ratio</label>
+                                <input type="range" id="dti" min="0" max="100" value="20">
+                                <span class="value"><span id="dti-value">20</span>%</span>
+                            </div>
+                            <div class="col">
+                                <label>Revolving Utilization</label>
+                                <input type="range" id="revol-util" min="0" max="100" value="30">
+                                <span class="value"><span id="revol-util-value">30</span>%</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Annual Income</label>
+                                <input type="number" id="annual-income" value="60000" min="0">
+                            </div>
+                            <div class="col">
+                                <label>Total Bankcard Limit</label>
+                                <input type="number" id="total-bc-limit" value="15000" min="0">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Total Accounts</label>
+                                <input type="number" id="total-acc" value="10" min="0">
+                            </div>
+                            <div class="col">
+                                <label>Open Accounts</label>
+                                <input type="number" id="open-acc" value="5" min="0">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button id="calculate" class="calculate-btn">
+                        <i class="fas fa-calculator"></i>
+                        Update Results
+                    </button>
+                </div>
+            </div>
+
+            
+                
+
+                <div class="sidebar-cards-container">
+                <div class="header-card">
+                    <div class="header-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="header-content">
+                        <h4>Developer Resources</h4>
+                        <p>Links & Documentation</p>
+                    </div>
+                </div>
+                    <div class="sidebar-card">
+                        <div class="sidebar-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="sidebar-content">
+                            <h3>Training Dataset</h3>
+                            <a href="#" class="sidebar-button" target="_blank">View Dataset</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <div class="sidebar-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="sidebar-content">
+                            <h3>Jupyter Notebooks</h3>
+                            <a href="#" class="sidebar-button" target="_blank">View Notebooks</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <div class="sidebar-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="sidebar-content">
+                            <h3>API Source Code</h3>
+                            <a href="#" class="sidebar-button" target="_blank">GitHub Repo</a>
+                        </div>
+                    </div>
+
+
+                    <div class="sidebar-card">
+                        <div class="sidebar-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="sidebar-content">
+                            <h3>My LinkedIn Profile</h3>
+                            <a href="#" class="sidebar-button" target="_blank">Connect</a>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <div class="sidebar-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="sidebar-content">
+                            <h3>My GitHub Profile</h3>
+                            <a href="#" class="sidebar-button" target="_blank">View Profile</a>
+                        </div>
+                    </div>
+
+                </div>
+            
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
