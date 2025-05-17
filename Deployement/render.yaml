@@ -2,6 +2,7 @@ services:
   - type: web
     name: interest-rate-estimator
     env: python
+    rootDir: Deployement
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
